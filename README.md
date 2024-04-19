@@ -60,7 +60,13 @@ pub fn main() {
 The project under `codegen` directory is used to generate library files based on the contents of [palette.json](https://raw.githubusercontent.com/catppuccin/palette/main/palette.json).
 
 1. Clone this repository locally
+    ```sh
+    git clone https://github.com/MAHcodes/catppuccin/
+    ```
 2. Cd to the `codegen` directory
+    ```sh
+    ch codegen
+    ```
 3. Run the following command to generate files:
     ```sh
     gleam run
