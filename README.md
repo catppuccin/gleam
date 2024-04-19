@@ -45,7 +45,7 @@ pub fn main() {
 
 ## Development
 
-This project uses [palette.json](https://raw.githubusercontent.com/catppuccin/palette/main/palette.json) to generate library files in the lib directory.
+This project uses [palette.json](https://raw.githubusercontent.com/catppuccin/palette/main/palette.json) to generate library files in the `lib` directory.
 
 1. Clone this repository locally
 2. Run the following command to generate files:
@@ -53,15 +53,11 @@ This project uses [palette.json](https://raw.githubusercontent.com/catppuccin/pa
     ```sh
     gleam run   # Run the project
     ```
+3. Format the generated code in lib/src:
 
-## Formatting
-
-Formatting is done manually after generating files.
-
-```sh
-gleam run lib/src
-```
-
+    ```sh
+    gleam format lib/src
+    ```
 
 ## 💝 Thanks to
 
