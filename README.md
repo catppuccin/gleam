@@ -11,11 +11,14 @@
 	<a href="https://github.com/catppuccin/gleam/contributors"><img src="https://img.shields.io/github/contributors/catppuccin/gleam?colorA=363a4f&colorB=a6da95&style=for-the-badge"></a>
 </p>
 
-## Usage
+## Installation
 
 ```sh
 gleam add catppuccin
 ```
+
+## Usage
+
 ```gleam
 import catppuccin
 import catppuccin/mocha
@@ -39,6 +42,26 @@ pub fn main() {
 
 -	Q: **_"Where can I find the doc?"_**\
 	A: Further documentation can be found at <https://hexdocs.pm/catppuccin>.
+
+## Development
+
+This project uses [palette.json](https://raw.githubusercontent.com/catppuccin/palette/main/palette.json) to generate library files in the lib directory.
+
+1. Clone this repository locally
+2. Run the following command to generate files:
+
+    ```sh
+    gleam run   # Run the project
+    ```
+
+## Formatting
+
+Formatting is done manually after generating files.
+
+```sh
+gleam run lib/src
+```
+
 
 ## 💝 Thanks to
 
