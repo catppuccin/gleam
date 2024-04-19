@@ -65,9 +65,9 @@ The project under `codegen` directory is used to generate library files based on
     ```
 2. Cd to the `codegen` directory
     ```sh
-    ch codegen
+    cd codegen
     ```
-3. Run the following command to generate files:
+3. Run the project to generate files
     ```sh
     gleam run
     ```
