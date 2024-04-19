@@ -1,5 +1,5 @@
 import dynamic26.{decode26}
-import gleam/dynamic.{type Dynamic, field, float, int, string}
+import gleam/dynamic.{type Dynamic, field, float, int, string, bool}
 import gleam/float
 import gleam/http/request
 import gleam/httpc
@@ -21,7 +21,7 @@ pub type HSL {
 }
 
 pub type Color {
-  Color(name: String, hex: Hex, rgb: RGB, hsl: HSL)
+  Color(name: String, order: Int, accent: Bool, hex: Hex, rgb: RGB, hsl: HSL)
 }
 
 pub type Colors {
@@ -56,7 +56,7 @@ pub type Colors {
 }
 
 pub type Flavour {
-  Flavour(name: String, colors: Colors)
+  Flavour(name: String, order: Int, dark: Bool, colors: Colors)
 }
 
 pub type Palette {
@@ -87,9 +87,11 @@ fn parse_palette(palette_string: String) -> Palette {
       field("l", float),
     )
   let color_decoder =
-    dynamic.decode4(
+    dynamic.decode6(
       Color,
       field("name", string),
+      field("order", int),
+      field("accent", bool),
       field("hex", string),
       field("rgb", rgb_decoder),
       field("hsl", hsl_decoder),
@@ -125,9 +127,11 @@ fn parse_palette(palette_string: String) -> Palette {
       field("crust", color_decoder),
     )
   let flavour_decoder =
-    dynamic.decode2(
+    dynamic.decode4(
       Flavour,
       field("name", string),
+      field("order", int),
+      field("dark", bool),
       field("colors", colors_decoder),
     )
   let palette_decoder =
@@ -143,14 +147,20 @@ fn parse_palette(palette_string: String) -> Palette {
   palette
 }
 
-fn format_color(color: Color, name) -> String {
+fn format_color(color: Color, name: String) -> String {
   let assert Ok(formatted) =
-    "pub const {name} = Color(
+    "pub const {color} = Color(
+  name: \"{name}\",
+  order: {order},
+  accent: {accent},
   hex: \"{hex}\",
   rgb: RGB(r: {r}, g: {g}, b: {b}),
   hsl: HSL(h: {h}, s: {s}, l: {l}),
 )\n\n"
-    |> replace("name", with: name)
+    |> replace("color", name)
+    |> then("name", color.name)
+    |> then("order", int.to_string(color.order))
+    |> then("accent", to_string(color.accent))
     |> then("hex", color.hex)
     |> then("r", int.to_string(color.rgb.r))
     |> then("g", int.to_string(color.rgb.g))
@@ -162,12 +172,36 @@ fn format_color(color: Color, name) -> String {
   formatted
 }
 
+fn to_string(bool: Bool) -> String {
+  case bool {
+    True -> "True"
+    False -> "False"
+  }
+}
+
+fn write_metadata(flavour: Flavour, filepath: String) {
+  let assert Ok(Nil) =
+    write(filepath, "import catppuccin.{type Color, Color, HSL, RGB}\n\n")
+
+  let assert Ok(formatted) =
+  "pub const name = \"{name}\"
+
+pub const order = {order}
+
+pub const dark = {dark}\n\n"
+  |> replace("name", flavour.name)
+  |> then("order", int.to_string(flavour.order))
+  |> then("dark", to_string(flavour.dark))
+
+  append(filepath, formatted)
+}
+
 fn write_flavour(flavour: Flavour, name: String) {
   let base_path = "./lib/src/catppuccin/"
   let filepath = base_path <> name <> ".gleam"
 
-  let assert Ok(Nil) =
-    write(filepath, "import catppuccin.{type Color, Color, HSL, RGB}\n\n")
+  let assert Ok(Nil) = write_metadata(flavour, filepath)
+
   let assert Ok(Nil) =
     append(filepath, format_color(flavour.colors.rosewater, "rosewater"))
   let assert Ok(Nil) =

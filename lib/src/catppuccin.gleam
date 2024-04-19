@@ -10,7 +10,7 @@ pub type HSL {
 }
 
 pub type Color {
-  Color(hex: Hex, rgb: RGB, hsl: HSL)
+  Color(name: String, order: Int, accent: Bool, hex: Hex, rgb: RGB, hsl: HSL)
 }
 
 pub fn to_hex(color: Color) -> Hex {
