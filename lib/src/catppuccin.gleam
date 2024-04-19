@@ -12,9 +12,9 @@ pub type CatppuccinColor {
 ///
 pub fn to_community_colour(r r: Int, g g: Int, b b: Int) -> Colour {
   colour.from_rgb(
-    r: int.to_float(r / 255),
-    g: int.to_float(g / 255),
-    b: int.to_float(b / 255),
+    r: int.to_float(r) /. 255.0,
+    g: int.to_float(g) /. 255.0,
+    b: int.to_float(b) /. 255.0,
   )
   |> result.unwrap(white)
 }
