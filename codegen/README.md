@@ -9,32 +9,28 @@
 gleam add catppuccin
 ```
 ```gleam
-import catppuccin/mocha
+import catppuccin/frappe
 import gleam/io
 import gleam_community/colour
 
 pub fn main() {
-  mocha.name
+  frappe.name
   |> io.debug
-  // "Mocha"
+  // "Frappé"
 
-  mocha.mauve().name
+  frappe.mauve().name
   |> io.debug
   // "Mauve"
 
-  mocha.mauve().colour
+  frappe.mauve().colour
   |> colour.to_rgba
   |> io.debug
-  // #(0.796078431372549, 0.6509803921568628, 0.9686274509803922, 1.0)
+  // #(0.792156862745098, 0.6196078431372549, 0.9019607843137255, 1.0)
 
-  mocha.mauve().colour
+  frappe.mauve().colour
   |> colour.to_css_rgba_string
   |> io.debug
-  // rgba(79.61%,65.1%,96.86%,1.0)
-
-  mocha.mauve().rgb.r
-  |> io.debug
-  // 203
+  // "rgba(79.22%,61.96%,90.2%,1.0)"
 }
 ```
 
