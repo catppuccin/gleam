@@ -1,20 +1,18 @@
 import dynamic26.{decode26}
-import gleam/dynamic.{type Dynamic, bool, field, float, int, string}
-import gleam/float
+import gleam/dynamic.{bool, field, int, string}
 import gleam/http/request
 import gleam/httpc
 import gleam/int
 import gleam/json
-import gleam/result
 import glormat.{replace, then}
 import simplifile.{append, write}
 
-pub type HSL {
-  HSL(h: Float, s: Float, l: Float)
+pub type RGB {
+  RGB(r: Int, g: Int, b: Int)
 }
 
 pub type Color {
-  Color(name: String, order: Int, accent: Bool, hsl: HSL)
+  Color(name: String, order: Int, accent: Bool, rgb: RGB)
 }
 
 pub type Colors {
@@ -63,19 +61,13 @@ fn fetch_palette() -> String {
   resp.body
 }
 
-fn decode_int_as_float(dyn: Dynamic) {
-  dyn
-  |> dynamic.int
-  |> result.map(int.to_float)
-}
-
 fn parse_palette(palette_string: String) -> Palette {
-  let hsl_decoder =
+  let rgb_decoder =
     dynamic.decode3(
-      HSL,
-      field("h", dynamic.any([dynamic.float, decode_int_as_float])),
-      field("s", float),
-      field("l", float),
+      RGB,
+      field("r", int),
+      field("g", int),
+      field("b", int),
     )
   let color_decoder =
     dynamic.decode4(
@@ -83,7 +75,7 @@ fn parse_palette(palette_string: String) -> Palette {
       field("name", string),
       field("order", int),
       field("accent", bool),
-      field("hsl", hsl_decoder),
+      field("rgb", rgb_decoder),
     )
   let colors_decoder =
     decode26(
@@ -144,9 +136,9 @@ fn format_color(color: Color, name: String) -> String {
     order: {order},
     accent: {accent},
     color: to_community_colour(
-      h: {h},
-      s: {s},
-      l: {l},
+      r: {r},
+      g: {g},
+      b: {b},
     ),
   )
 }"
@@ -154,9 +146,9 @@ fn format_color(color: Color, name: String) -> String {
     |> then("name", color.name)
     |> then("order", int.to_string(color.order))
     |> then("accent", to_string(color.accent))
-    |> then("h", float.to_string(color.hsl.h /. 100.0))
-    |> then("s", float.to_string(color.hsl.s))
-    |> then("l", float.to_string(color.hsl.l))
+    |> then("r", int.to_string(color.rgb.r))
+    |> then("g", int.to_string(color.rgb.g))
+    |> then("b", int.to_string(color.rgb.b))
 
   formatted
 }

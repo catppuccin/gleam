@@ -12,9 +12,9 @@ pub fn rosewater() -> CatppuccinColor {
     order: 0,
     accent: True,
     color: to_community_colour(
-      h: 10.2857142857143,
-      s: 0.5737704918032784,
-      l: 0.8803921568627451,
+      r: 242,
+      g: 213,
+      b: 207,
     ),
   )
 }
@@ -25,9 +25,9 @@ pub fn flamingo() -> CatppuccinColor {
     order: 1,
     accent: True,
     color: to_community_colour(
-      h: 0.0,
-      s: 0.5853658536585367,
-      l: 0.8392156862745098,
+      r: 238,
+      g: 190,
+      b: 190,
     ),
   )
 }
@@ -38,9 +38,9 @@ pub fn pink() -> CatppuccinColor {
     order: 2,
     accent: True,
     color: to_community_colour(
-      h: 316.0,
-      s: 0.7317073170731713,
-      l: 0.8392156862745098,
+      r: 244,
+      g: 184,
+      b: 228,
     ),
   )
 }
@@ -51,9 +51,9 @@ pub fn mauve() -> CatppuccinColor {
     order: 3,
     accent: True,
     color: to_community_colour(
-      h: 276.66666666666663,
-      s: 0.5901639344262294,
-      l: 0.7607843137254902,
+      r: 202,
+      g: 158,
+      b: 230,
     ),
   )
 }
@@ -64,9 +64,9 @@ pub fn red() -> CatppuccinColor {
     order: 4,
     accent: True,
     color: to_community_colour(
-      h: 358.8118811881188,
-      s: 0.6778523489932885,
-      l: 0.7078431372549019,
+      r: 231,
+      g: 130,
+      b: 132,
     ),
   )
 }
@@ -77,9 +77,9 @@ pub fn maroon() -> CatppuccinColor {
     order: 5,
     accent: True,
     color: to_community_colour(
-      h: 357.77777777777777,
-      s: 0.6585365853658534,
-      l: 0.7588235294117647,
+      r: 234,
+      g: 153,
+      b: 156,
     ),
   )
 }
@@ -90,9 +90,9 @@ pub fn peach() -> CatppuccinColor {
     order: 6,
     accent: True,
     color: to_community_colour(
-      h: 20.33057851239669,
-      s: 0.7908496732026143,
-      l: 0.7,
+      r: 239,
+      g: 159,
+      b: 118,
     ),
   )
 }
@@ -103,9 +103,9 @@ pub fn yellow() -> CatppuccinColor {
     order: 7,
     accent: True,
     color: to_community_colour(
-      h: 39.52941176470588,
-      s: 0.6204379562043796,
-      l: 0.7313725490196079,
+      r: 229,
+      g: 200,
+      b: 144,
     ),
   )
 }
@@ -116,9 +116,9 @@ pub fn green() -> CatppuccinColor {
     order: 8,
     accent: True,
     color: to_community_colour(
-      h: 95.83333333333331,
-      s: 0.4390243902439024,
-      l: 0.6784313725490196,
+      r: 166,
+      g: 209,
+      b: 137,
     ),
   )
 }
@@ -129,9 +129,9 @@ pub fn teal() -> CatppuccinColor {
     order: 9,
     accent: True,
     color: to_community_colour(
-      h: 171.5492957746479,
-      s: 0.3922651933701657,
-      l: 0.6450980392156862,
+      r: 129,
+      g: 200,
+      b: 190,
     ),
   )
 }
@@ -142,9 +142,9 @@ pub fn sky() -> CatppuccinColor {
     order: 10,
     accent: True,
     color: to_community_colour(
-      h: 189.09090909090907,
-      s: 0.47826086956521735,
-      l: 0.7294117647058823,
+      r: 153,
+      g: 209,
+      b: 219,
     ),
   )
 }
@@ -155,9 +155,9 @@ pub fn sapphire() -> CatppuccinColor {
     order: 11,
     accent: True,
     color: to_community_colour(
-      h: 198.62068965517244,
-      s: 0.5541401273885351,
-      l: 0.692156862745098,
+      r: 133,
+      g: 193,
+      b: 220,
     ),
   )
 }
@@ -168,9 +168,9 @@ pub fn blue() -> CatppuccinColor {
     order: 12,
     accent: True,
     color: to_community_colour(
-      h: 221.6326530612245,
-      s: 0.7424242424242424,
-      l: 0.7411764705882353,
+      r: 140,
+      g: 170,
+      b: 238,
     ),
   )
 }
@@ -181,9 +181,9 @@ pub fn lavender() -> CatppuccinColor {
     order: 13,
     accent: True,
     color: to_community_colour(
-      h: 238.90909090909093,
-      s: 0.6626506024096385,
-      l: 0.8372549019607842,
+      r: 186,
+      g: 187,
+      b: 241,
     ),
   )
 }
@@ -194,9 +194,9 @@ pub fn text() -> CatppuccinColor {
     order: 14,
     accent: False,
     color: to_community_colour(
-      h: 227.2340425531915,
-      s: 0.7014925373134333,
-      l: 0.8686274509803922,
+      r: 198,
+      g: 208,
+      b: 245,
     ),
   )
 }
@@ -207,9 +207,9 @@ pub fn subtext1() -> CatppuccinColor {
     order: 15,
     accent: False,
     color: to_community_colour(
-      h: 226.66666666666669,
-      s: 0.43689320388349495,
-      l: 0.7980392156862746,
+      r: 181,
+      g: 191,
+      b: 226,
     ),
   )
 }
@@ -220,9 +220,9 @@ pub fn subtext0() -> CatppuccinColor {
     order: 16,
     accent: False,
     color: to_community_colour(
-      h: 228.29268292682926,
-      s: 0.2949640287769784,
-      l: 0.7274509803921569,
+      r: 165,
+      g: 173,
+      b: 206,
     ),
   )
 }
@@ -233,9 +233,9 @@ pub fn overlay2() -> CatppuccinColor {
     order: 17,
     accent: False,
     color: to_community_colour(
-      h: 227.69230769230768,
-      s: 0.22285714285714275,
-      l: 0.6568627450980392,
+      r: 148,
+      g: 156,
+      b: 187,
     ),
   )
 }
@@ -246,9 +246,9 @@ pub fn overlay1() -> CatppuccinColor {
     order: 18,
     accent: False,
     color: to_community_colour(
-      h: 226.66666666666669,
-      s: 0.16981132075471703,
-      l: 0.584313725490196,
+      r: 131,
+      g: 139,
+      b: 167,
     ),
   )
 }
@@ -259,9 +259,9 @@ pub fn overlay0() -> CatppuccinColor {
     order: 19,
     accent: False,
     color: to_community_colour(
-      h: 229.0909090909091,
-      s: 0.13360323886639683,
-      l: 0.515686274509804,
+      r: 115,
+      g: 121,
+      b: 148,
     ),
   )
 }
@@ -272,9 +272,9 @@ pub fn surface2() -> CatppuccinColor {
     order: 20,
     accent: False,
     color: to_community_colour(
-      h: 228.00000000000003,
-      s: 0.1327433628318584,
-      l: 0.44313725490196076,
+      r: 98,
+      g: 104,
+      b: 128,
     ),
   )
 }
@@ -285,9 +285,9 @@ pub fn surface1() -> CatppuccinColor {
     order: 21,
     accent: False,
     color: to_community_colour(
-      h: 227.14285714285714,
-      s: 0.14736842105263157,
-      l: 0.37254901960784315,
+      r: 81,
+      g: 87,
+      b: 109,
     ),
   )
 }
@@ -298,9 +298,9 @@ pub fn surface0() -> CatppuccinColor {
     order: 22,
     accent: False,
     color: to_community_colour(
-      h: 230.00000000000003,
-      s: 0.15584415584415584,
-      l: 0.30196078431372547,
+      r: 65,
+      g: 69,
+      b: 89,
     ),
   )
 }
@@ -311,9 +311,9 @@ pub fn base() -> CatppuccinColor {
     order: 23,
     accent: False,
     color: to_community_colour(
-      h: 229.0909090909091,
-      s: 0.18644067796610175,
-      l: 0.23137254901960785,
+      r: 48,
+      g: 52,
+      b: 70,
     ),
   )
 }
@@ -324,9 +324,9 @@ pub fn mantle() -> CatppuccinColor {
     order: 24,
     accent: False,
     color: to_community_colour(
-      h: 230.52631578947367,
-      s: 0.18811881188118806,
-      l: 0.19803921568627453,
+      r: 41,
+      g: 44,
+      b: 60,
     ),
   )
 }
@@ -337,9 +337,9 @@ pub fn crust() -> CatppuccinColor {
     order: 25,
     accent: False,
     color: to_community_colour(
-      h: 229.41176470588238,
-      s: 0.19540229885057467,
-      l: 0.17058823529411765,
+      r: 35,
+      g: 38,
+      b: 52,
     ),
   )
 }
