@@ -43,7 +43,7 @@ pub fn main() {
 -	Q: **_"Where can I find the doc?"_**\
 	A: Further documentation can be found at <https://hexdocs.pm/catppuccin>.
 
-## 🛠️Development
+## 🛠️ Development
 
 This project uses [palette.json](https://raw.githubusercontent.com/catppuccin/palette/main/palette.json) to generate library files in the `lib` directory.
 
