@@ -1,9 +1,34 @@
+//// ⭐️ Soothing pastel library for Gleam
+////
+
 import gleam/int
 import gleam/result
 import gleam_community/colour.{type Colour, white}
 
+pub type Hex =
+  String
+
+pub type RGB {
+  RGB(r: Int, g: Int, b: Int)
+}
+
+pub type HSL {
+  HSL(h: Float, s: Float, l: Float)
+}
+
 pub type CatppuccinColor {
-  CatppuccinColor(name: String, order: Int, accent: Bool, color: Colour)
+  CatppuccinColor(
+    name: String,
+    order: Int,
+    accent: Bool,
+    hex: Hex,
+    rgb: RGB,
+    hsl: HSL,
+    /// Get the color as `Colour` from gleam_community_colour
+    /// <https://hexdocs.pm/gleam_community_colour/gleam_community/colour.html#Colour>
+    ///
+    colour: Colour,
+  )
 }
 
 /// Converts rgb values to a `Colour`.

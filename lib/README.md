@@ -9,19 +9,32 @@
 gleam add catppuccin
 ```
 ```gleam
-import catppuccin
 import catppuccin/mocha
 import gleam/io
+import gleam_community/colour
 
 pub fn main() {
-  // access the value directly
-  mocha.blue.rgb.r
-  |> io.debug // 137
+  mocha.name
+  |> io.debug
+  // "Mocha"
 
-  // or access the value using the built-in methods
-  mocha.lavender
-  |> catppuccin.to_hex
-  |> io.debug // #b4befe
+  mocha.mauve().name
+  |> io.debug
+  // "Mauve"
+
+  mocha.mauve().colour
+  |> colour.to_rgba
+  |> io.debug
+  // #(0.796078431372549, 0.6509803921568628, 0.9686274509803922, 1.0)
+
+  mocha.mauve().colour
+  |> colour.to_css_rgba_string
+  |> io.debug
+  // rgba(79.61%,65.1%,96.86%,1.0)
+
+  mocha.mauve().rgb.r
+  |> io.debug
+  // 203
 }
 ```
 
