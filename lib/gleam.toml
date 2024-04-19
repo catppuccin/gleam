@@ -1,5 +1,5 @@
 name = "catppuccin"
-version = "1.3.3"
+version = "1.3.4"
 
 description = "⭐️ Soothing pastel library for Gleam"
 licences = ["MIT"]
