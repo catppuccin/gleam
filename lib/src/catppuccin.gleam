@@ -1,26 +1,15 @@
-pub type Hex =
-  String
+import gleam/result
+import gleam_community/colour.{type Colour, white}
 
-pub type RGB {
-  RGB(r: Int, g: Int, b: Int)
+pub type CatppuccinColor {
+  CatppuccinColor(name: String, order: Int, accent: Bool, color: Colour)
 }
 
-pub type HSL {
-  HSL(h: Float, s: Float, l: Float)
-}
-
-pub type Color {
-  Color(name: String, order: Int, accent: Bool, hex: Hex, rgb: RGB, hsl: HSL)
-}
-
-pub fn to_hex(color: Color) -> Hex {
-  color.hex
-}
-
-pub fn to_rgb(color: Color) -> RGB {
-  color.rgb
-}
-
-pub fn to_hsl(color: Color) -> HSL {
-  color.hsl
+/// Converts hsl values to a `Colour`.
+/// returns white as a fallback color, if the conversion fails.
+/// this is used by the lib (probably should've been a private function)
+///
+pub fn to_community_colour(h h: Float, s s: Float, l l: Float) -> Colour {
+  colour.from_hsl(h: h, s: s, l: l)
+  |> result.unwrap(white)
 }
