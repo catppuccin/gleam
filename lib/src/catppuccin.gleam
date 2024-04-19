@@ -6,7 +6,7 @@ pub type RGB {
 }
 
 pub type HSL {
-  HSL(h: Int, s: Float, l: Float)
+  HSL(h: Float, s: Float, l: Float)
 }
 
 pub type Color {

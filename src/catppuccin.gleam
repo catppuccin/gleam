@@ -1,12 +1,13 @@
 import dynamic26.{decode26}
 import gleam/dynamic.{type Dynamic, field, float, int, string}
+import gleam/float
 import gleam/http/request
-import gleam/http/response.{type Response}
 import gleam/httpc
 import gleam/int
-import gleam/io
 import gleam/json
 import gleam/result
+import glormat.{replace, then}
+import simplifile.{append, write}
 
 pub type Hex =
   String
@@ -24,7 +25,6 @@ pub type Color {
 }
 
 pub type Colors {
-  // TODO: add all colors
   Colors(
     rosewater: Color,
     flamingo: Color,
@@ -65,9 +65,7 @@ pub type Palette {
 
 fn fetch_palette() -> String {
   let url = "https://github.com/catppuccin/palette/raw/main/palette.json"
-  // TODO: handle error
   let assert Ok(req) = request.to(url)
-  // TODO: handle error
   let assert Ok(resp) = httpc.send(req)
   resp.body
 }
@@ -141,13 +139,96 @@ fn parse_palette(palette_string: String) -> Palette {
       field("mocha", flavour_decoder),
     )
 
-  // TODO: handle error
   let assert Ok(palette) = json.decode(palette_string, palette_decoder)
   palette
 }
 
+fn format_color(color: Color, name) -> String {
+  let assert Ok(formatted) =
+    "pub const {name} = Color(
+  hex: \"{hex}\",
+  rgb: RGB(r: {r}, g: {g}, b: {b}),
+  hsl: HSL(h: {h}, s: {s}, l: {l}),
+)\n\n"
+    |> replace("name", with: name)
+    |> then("hex", color.hex)
+    |> then("r", int.to_string(color.rgb.r))
+    |> then("g", int.to_string(color.rgb.g))
+    |> then("b", int.to_string(color.rgb.b))
+    |> then("h", float.to_string(color.hsl.h))
+    |> then("s", float.to_string(color.hsl.s))
+    |> then("l", float.to_string(color.hsl.l))
+
+  formatted
+}
+
+fn write_flavour(flavour: Flavour, name: String) {
+  let base_path = "./lib/src/catppuccin/"
+  let filepath = base_path <> name <> ".gleam"
+
+  let assert Ok(Nil) =
+    write(filepath, "import catppuccin.{type Color, Color, HSL, RGB}\n\n")
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.rosewater, "rosewater"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.flamingo, "flamingo"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.pink, "pink"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.mauve, "mauve"))
+  let assert Ok(Nil) = append(filepath, format_color(flavour.colors.red, "red"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.maroon, "maroon"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.peach, "peach"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.yellow, "yellow"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.green, "green"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.teal, "teal"))
+  let assert Ok(Nil) = append(filepath, format_color(flavour.colors.sky, "sky"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.sapphire, "sapphire"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.blue, "blue"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.lavender, "lavender"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.text, "text"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.subtext1, "subtext1"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.subtext0, "subtext0"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.overlay2, "overlay2"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.overlay1, "overlay1"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.overlay0, "overlay0"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.surface2, "surface2"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.surface1, "surface1"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.surface0, "surface0"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.base, "base"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.mantle, "mantle"))
+  let assert Ok(Nil) =
+    append(filepath, format_color(flavour.colors.crust, "crust"))
+
+  Nil
+}
+
 pub fn main() {
-  fetch_palette()
-  |> parse_palette()
-  |> io.debug()
+  let palette =
+    fetch_palette()
+    |> parse_palette()
+
+  write_flavour(palette.latte, "latte")
+  write_flavour(palette.frappe, "frappe")
+  write_flavour(palette.macchiato, "macchiato")
+  write_flavour(palette.mocha, "mocha")
 }
