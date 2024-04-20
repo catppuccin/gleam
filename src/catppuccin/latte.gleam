@@ -1,4 +1,4 @@
-import catppuccin.{type CatppuccinColor, CatppuccinColor, to_community_colour}
+import catppuccin.{type CatppuccinColor, CatppuccinColor, to_colour, from_rgb}
 
 pub const name = "Latte"
 
@@ -11,7 +11,8 @@ pub fn rosewater() -> CatppuccinColor {
     name: "Rosewater",
     order: 0,
     accent: True,
-    colour: to_community_colour(r: 220, g: 138, b: 120),
+    colour: to_colour(r: 220, g: 138, b: 120),
+    colour_result: from_rgb(r: 220, g: 138, b: 120),
   )
 }
 
@@ -20,7 +21,8 @@ pub fn flamingo() -> CatppuccinColor {
     name: "Flamingo",
     order: 1,
     accent: True,
-    colour: to_community_colour(r: 221, g: 120, b: 120),
+    colour: to_colour(r: 221, g: 120, b: 120),
+    colour_result: from_rgb(r: 221, g: 120, b: 120),
   )
 }
 
@@ -29,7 +31,8 @@ pub fn pink() -> CatppuccinColor {
     name: "Pink",
     order: 2,
     accent: True,
-    colour: to_community_colour(r: 234, g: 118, b: 203),
+    colour: to_colour(r: 234, g: 118, b: 203),
+    colour_result: from_rgb(r: 234, g: 118, b: 203),
   )
 }
 
@@ -38,7 +41,8 @@ pub fn mauve() -> CatppuccinColor {
     name: "Mauve",
     order: 3,
     accent: True,
-    colour: to_community_colour(r: 136, g: 57, b: 239),
+    colour: to_colour(r: 136, g: 57, b: 239),
+    colour_result: from_rgb(r: 136, g: 57, b: 239),
   )
 }
 
@@ -47,7 +51,8 @@ pub fn red() -> CatppuccinColor {
     name: "Red",
     order: 4,
     accent: True,
-    colour: to_community_colour(r: 210, g: 15, b: 57),
+    colour: to_colour(r: 210, g: 15, b: 57),
+    colour_result: from_rgb(r: 210, g: 15, b: 57),
   )
 }
 
@@ -56,7 +61,8 @@ pub fn maroon() -> CatppuccinColor {
     name: "Maroon",
     order: 5,
     accent: True,
-    colour: to_community_colour(r: 230, g: 69, b: 83),
+    colour: to_colour(r: 230, g: 69, b: 83),
+    colour_result: from_rgb(r: 230, g: 69, b: 83),
   )
 }
 
@@ -65,7 +71,8 @@ pub fn peach() -> CatppuccinColor {
     name: "Peach",
     order: 6,
     accent: True,
-    colour: to_community_colour(r: 254, g: 100, b: 11),
+    colour: to_colour(r: 254, g: 100, b: 11),
+    colour_result: from_rgb(r: 254, g: 100, b: 11),
   )
 }
 
@@ -74,7 +81,8 @@ pub fn yellow() -> CatppuccinColor {
     name: "Yellow",
     order: 7,
     accent: True,
-    colour: to_community_colour(r: 223, g: 142, b: 29),
+    colour: to_colour(r: 223, g: 142, b: 29),
+    colour_result: from_rgb(r: 223, g: 142, b: 29),
   )
 }
 
@@ -83,7 +91,8 @@ pub fn green() -> CatppuccinColor {
     name: "Green",
     order: 8,
     accent: True,
-    colour: to_community_colour(r: 64, g: 160, b: 43),
+    colour: to_colour(r: 64, g: 160, b: 43),
+    colour_result: from_rgb(r: 64, g: 160, b: 43),
   )
 }
 
@@ -92,7 +101,8 @@ pub fn teal() -> CatppuccinColor {
     name: "Teal",
     order: 9,
     accent: True,
-    colour: to_community_colour(r: 23, g: 146, b: 153),
+    colour: to_colour(r: 23, g: 146, b: 153),
+    colour_result: from_rgb(r: 23, g: 146, b: 153),
   )
 }
 
@@ -101,7 +111,8 @@ pub fn sky() -> CatppuccinColor {
     name: "Sky",
     order: 10,
     accent: True,
-    colour: to_community_colour(r: 4, g: 165, b: 229),
+    colour: to_colour(r: 4, g: 165, b: 229),
+    colour_result: from_rgb(r: 4, g: 165, b: 229),
   )
 }
 
@@ -110,7 +121,8 @@ pub fn sapphire() -> CatppuccinColor {
     name: "Sapphire",
     order: 11,
     accent: True,
-    colour: to_community_colour(r: 32, g: 159, b: 181),
+    colour: to_colour(r: 32, g: 159, b: 181),
+    colour_result: from_rgb(r: 32, g: 159, b: 181),
   )
 }
 
@@ -119,7 +131,8 @@ pub fn blue() -> CatppuccinColor {
     name: "Blue",
     order: 12,
     accent: True,
-    colour: to_community_colour(r: 30, g: 102, b: 245),
+    colour: to_colour(r: 30, g: 102, b: 245),
+    colour_result: from_rgb(r: 30, g: 102, b: 245),
   )
 }
 
@@ -128,7 +141,8 @@ pub fn lavender() -> CatppuccinColor {
     name: "Lavender",
     order: 13,
     accent: True,
-    colour: to_community_colour(r: 114, g: 135, b: 253),
+    colour: to_colour(r: 114, g: 135, b: 253),
+    colour_result: from_rgb(r: 114, g: 135, b: 253),
   )
 }
 
@@ -137,7 +151,8 @@ pub fn text() -> CatppuccinColor {
     name: "Text",
     order: 14,
     accent: False,
-    colour: to_community_colour(r: 76, g: 79, b: 105),
+    colour: to_colour(r: 76, g: 79, b: 105),
+    colour_result: from_rgb(r: 76, g: 79, b: 105),
   )
 }
 
@@ -146,7 +161,8 @@ pub fn subtext1() -> CatppuccinColor {
     name: "Subtext 1",
     order: 15,
     accent: False,
-    colour: to_community_colour(r: 92, g: 95, b: 119),
+    colour: to_colour(r: 92, g: 95, b: 119),
+    colour_result: from_rgb(r: 92, g: 95, b: 119),
   )
 }
 
@@ -155,7 +171,8 @@ pub fn subtext0() -> CatppuccinColor {
     name: "Subtext 0",
     order: 16,
     accent: False,
-    colour: to_community_colour(r: 108, g: 111, b: 133),
+    colour: to_colour(r: 108, g: 111, b: 133),
+    colour_result: from_rgb(r: 108, g: 111, b: 133),
   )
 }
 
@@ -164,7 +181,8 @@ pub fn overlay2() -> CatppuccinColor {
     name: "Overlay 2",
     order: 17,
     accent: False,
-    colour: to_community_colour(r: 124, g: 127, b: 147),
+    colour: to_colour(r: 124, g: 127, b: 147),
+    colour_result: from_rgb(r: 124, g: 127, b: 147),
   )
 }
 
@@ -173,7 +191,8 @@ pub fn overlay1() -> CatppuccinColor {
     name: "Overlay 1",
     order: 18,
     accent: False,
-    colour: to_community_colour(r: 140, g: 143, b: 161),
+    colour: to_colour(r: 140, g: 143, b: 161),
+    colour_result: from_rgb(r: 140, g: 143, b: 161),
   )
 }
 
@@ -182,7 +201,8 @@ pub fn overlay0() -> CatppuccinColor {
     name: "Overlay 0",
     order: 19,
     accent: False,
-    colour: to_community_colour(r: 156, g: 160, b: 176),
+    colour: to_colour(r: 156, g: 160, b: 176),
+    colour_result: from_rgb(r: 156, g: 160, b: 176),
   )
 }
 
@@ -191,7 +211,8 @@ pub fn surface2() -> CatppuccinColor {
     name: "Surface 2",
     order: 20,
     accent: False,
-    colour: to_community_colour(r: 172, g: 176, b: 190),
+    colour: to_colour(r: 172, g: 176, b: 190),
+    colour_result: from_rgb(r: 172, g: 176, b: 190),
   )
 }
 
@@ -200,7 +221,8 @@ pub fn surface1() -> CatppuccinColor {
     name: "Surface 1",
     order: 21,
     accent: False,
-    colour: to_community_colour(r: 188, g: 192, b: 204),
+    colour: to_colour(r: 188, g: 192, b: 204),
+    colour_result: from_rgb(r: 188, g: 192, b: 204),
   )
 }
 
@@ -209,7 +231,8 @@ pub fn surface0() -> CatppuccinColor {
     name: "Surface 0",
     order: 22,
     accent: False,
-    colour: to_community_colour(r: 204, g: 208, b: 218),
+    colour: to_colour(r: 204, g: 208, b: 218),
+    colour_result: from_rgb(r: 204, g: 208, b: 218),
   )
 }
 
@@ -218,7 +241,8 @@ pub fn base() -> CatppuccinColor {
     name: "Base",
     order: 23,
     accent: False,
-    colour: to_community_colour(r: 239, g: 241, b: 245),
+    colour: to_colour(r: 239, g: 241, b: 245),
+    colour_result: from_rgb(r: 239, g: 241, b: 245),
   )
 }
 
@@ -227,7 +251,8 @@ pub fn mantle() -> CatppuccinColor {
     name: "Mantle",
     order: 24,
     accent: False,
-    colour: to_community_colour(r: 230, g: 233, b: 239),
+    colour: to_colour(r: 230, g: 233, b: 239),
+    colour_result: from_rgb(r: 230, g: 233, b: 239),
   )
 }
 
@@ -236,6 +261,7 @@ pub fn crust() -> CatppuccinColor {
     name: "Crust",
     order: 25,
     accent: False,
-    colour: to_community_colour(r: 220, g: 224, b: 232),
+    colour: to_colour(r: 220, g: 224, b: 232),
+    colour_result: from_rgb(r: 220, g: 224, b: 232),
   )
 }

@@ -154,7 +154,8 @@ fn format_color(color: Color, name: String) -> String {
     name: \"{name}\",
     order: {order},
     accent: {accent},
-    colour: to_community_colour(r: {r}, g: {g}, b: {b}),
+    colour: to_colour(r: {r}, g: {g}, b: {b}),
+    colour_result: from_rgb(r: {r}, g: {g}, b: {b}),
   )
 }"
     |> replace("color", name)
@@ -179,7 +180,7 @@ fn write_metadata(flavour: Flavour, filepath: String) {
   let assert Ok(Nil) =
     write(
       filepath,
-      "import catppuccin.{type CatppuccinColor, CatppuccinColor, to_community_colour}\n\n",
+      "import catppuccin.{type CatppuccinColor, CatppuccinColor, to_colour, from_rgb}\n\n",
     )
 
   let assert Ok(formatted) =
