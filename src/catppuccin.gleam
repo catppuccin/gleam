@@ -1,7 +1,6 @@
 //// ⭐️ Soothing pastel library for Gleam
 ////
 
-import gleam/int
 import gleam/result
 import gleam_community/colour
 
@@ -29,18 +28,6 @@ pub type CatppuccinColor {
 /// It is utilized internally by the library and ideally should have been a private function.  
 ///
 pub fn to_colour(r r: Int, g g: Int, b b: Int) -> colour.Colour {
-  from_rgb(r: r, g: g, b: b)
+  colour.from_rgb255(r: r, g: g, b: b)
   |> result.unwrap(colour.black)
-}
-
-/// This is a wrapper for [`colour.from_rgb`](https://hexdocs.pm/gleam_community_colour/gleam_community/colour.html#from_rgb).  
-/// converting RGB values represented as Int to Float with the appropriate conversion.  
-/// It is utilized internally by the library and ideally should have been a private function.  
-///
-pub fn from_rgb(r r: Int, g g: Int, b b: Int) -> Result(colour.Colour, Nil) {
-  colour.from_rgb(
-    r: int.to_float(r) /. 255.0,
-    g: int.to_float(g) /. 255.0,
-    b: int.to_float(b) /. 255.0,
-  )
 }
