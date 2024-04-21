@@ -8,29 +8,37 @@
 ```sh
 gleam add catppuccin
 ```
+
 ```gleam
-import catppuccin/frappe
+import catppuccin
 import gleam/io
 import gleam_community/colour
 
 pub fn main() {
-  frappe.name
+  catppuccin.frappe()
+  |> catppuccin.flavour_name
   |> io.debug
   // "Frappé"
 
-  frappe.mauve().name
+  catppuccin.macchiato()
+  |> catppuccin.subtext1
+  |> catppuccin.color_name
   |> io.debug
-  // "Mauve"
+  // "Subtext 1"
 
-  frappe.mauve().colour
+  catppuccin.mocha()
+  |> catppuccin.mauve
+  |> catppuccin.to_colour
   |> colour.to_rgba
   |> io.debug
-  // #(0.792156862745098, 0.6196078431372549, 0.9019607843137255, 1.0)
+  // #(0.796078431372549, 0.6509803921568628, 0.9686274509803922, 1.0)
 
-  frappe.mauve().colour
-  |> colour.to_css_rgba_string
+  catppuccin.latte()
+  |> catppuccin.mauve
+  |> catppuccin.to_colour
+  |> colour.to_hsla
   |> io.debug
-  // "rgba(79.22%,61.96%,90.2%,1.0)"
+  // #(0.739010989010989, 0.8504672897196262, 0.5803921568627451, 1.0)
 }
 ```
 

@@ -4,9 +4,11 @@ import gleam/http/request
 import gleam/httpc
 import gleam/int
 import gleam/json
+import gleam/list
 import gleam/result
+import gleam/string
 import glormat.{replace, then}
-import simplifile.{append, create_directory, write}
+import simplifile.{create_directory, write}
 
 pub type Hex =
   String
@@ -147,28 +149,6 @@ fn parse_palette(palette_string: String) -> Palette {
   palette
 }
 
-fn format_color(color: Color, name: String) -> String {
-  let assert Ok(formatted) =
-    "\n\npub fn {color}() -> CatppuccinColor {
-  CatppuccinColor(
-    name: \"{name}\",
-    order: {order},
-    accent: {accent},
-    colour: to_colour(r: {r}, g: {g}, b: {b}),
-    colour_result: colour.from_rgb255(r: {r}, g: {g}, b: {b}),
-  )
-}"
-    |> replace("color", name)
-    |> then("name", color.name)
-    |> then("order", int.to_string(color.order))
-    |> then("accent", to_string(color.accent))
-    |> then("r", int.to_string(color.rgb.r))
-    |> then("g", int.to_string(color.rgb.g))
-    |> then("b", int.to_string(color.rgb.b))
-
-  formatted
-}
-
 fn to_string(bool: Bool) -> String {
   case bool {
     True -> "True"
@@ -176,96 +156,199 @@ fn to_string(bool: Bool) -> String {
   }
 }
 
-fn write_metadata(flavour: Flavour, filepath: String) {
-  let assert Ok(Nil) =
-    write(
-      filepath,
-      "import catppuccin.{type CatppuccinColor, CatppuccinColor, to_colour}
-import gleam_community/colour\n\n",
-    )
+pub fn main() {
+  fetch_palette()
+  |> parse_palette
+  |> generate_catppuccin
+}
 
-  let assert Ok(formatted) =
-    "pub const name = \"{name}\"
+fn generate_catppuccin(palette: Palette) {
+  let base_path = "./out/"
+  let _ = create_directory(base_path)
+  let filepath = base_path <> "catppuccin.gleam"
 
-pub const order = {order}
+  let content =
+    [
+      template_header(),
+      template_opaque_colors(),
+      template_flavour(palette.latte, "latte"),
+      template_flavour(palette.frappe, "frappe"),
+      template_flavour(palette.macchiato, "macchiato"),
+      template_flavour(palette.mocha, "mocha"),
+    ]
+    |> string.concat
 
-pub const dark = {dark}"
-    |> replace("name", flavour.name)
+  let assert Ok(Nil) = write(filepath, content)
+}
+
+fn template_header() -> String {
+  "//// ⭐️ Soothing pastel library for Gleam
+////
+
+import gleam/result
+import gleam_community/colour
+
+pub opaque type Flavour {
+  Flavour(name: String, order: Int, dark: Bool, colors: Colors)
+}
+
+type Colors {
+  Colors(
+    rosewater: Color,
+    flamingo: Color,
+    pink: Color,
+    mauve: Color,
+    red: Color,
+    maroon: Color,
+    peach: Color,
+    yellow: Color,
+    green: Color,
+    teal: Color,
+    sky: Color,
+    sapphire: Color,
+    blue: Color,
+    lavender: Color,
+    text: Color,
+    subtext1: Color,
+    subtext0: Color,
+    overlay2: Color,
+    overlay1: Color,
+    overlay0: Color,
+    surface2: Color,
+    surface1: Color,
+    surface0: Color,
+    base: Color,
+    mantle: Color,
+    crust: Color,
+  )
+}
+
+pub opaque type Color {
+  Color(name: String, order: Int, accent: Bool, colour: colour.Colour)
+}
+
+pub fn flavour_name(flavour: Flavour) -> String {
+  flavour.name
+}
+
+pub fn flavour_order(flavour: Flavour) -> Int {
+  flavour.order
+}
+
+pub fn dark(flavour: Flavour) -> Bool {
+  flavour.dark
+}
+
+pub fn color_name(color: Color) -> String {
+  color.name
+}
+
+pub fn color_order(color: Color) -> Int {
+  color.order
+}
+
+pub fn accent(color: Color) -> Bool {
+  color.accent
+}
+
+/// The color represented as a [`Colour`](https://hexdocs.pm/gleam_community_colour/gleam_community/colour.html) type from [gleam_community_colour](https://hexdocs.pm/gleam_community_colour/gleam_community/colour.html).  
+/// For more information, refer to the [`gleam_community_colour`](https://hexdocs.pm/gleam_community_colour/gleam_community/colour.html#Colour).  
+///
+pub fn to_colour(color: Color) -> colour.Colour {
+  color.colour
+}"
+}
+
+fn template_flavour(flavour: Flavour, key: String) -> String {
+  let assert Ok(glormatted) =
+    "\n
+pub fn {key}() -> Flavour {
+  Flavour(
+    name: \"{name}\",
+    order: {order},
+    dark: {dark},
+    colors: Colors({colors}
+    ),
+  )
+}"
+    |> replace("key", key)
+    |> then("name", flavour.name)
     |> then("order", int.to_string(flavour.order))
     |> then("dark", to_string(flavour.dark))
-
-  append(filepath, formatted)
+    |> then("colors", template_colors(flavour.colors))
+  glormatted
 }
 
-fn write_flavour(flavour: Flavour, name: String) {
-  let base_path = "./catppuccin/"
-  let _ = create_directory(base_path)
-
-  let filepath = base_path <> name <> ".gleam"
-
-  let assert Ok(Nil) = write_metadata(flavour, filepath)
-
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.rosewater, "rosewater"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.flamingo, "flamingo"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.pink, "pink"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.mauve, "mauve"))
-  let assert Ok(Nil) = append(filepath, format_color(flavour.colors.red, "red"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.maroon, "maroon"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.peach, "peach"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.yellow, "yellow"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.green, "green"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.teal, "teal"))
-  let assert Ok(Nil) = append(filepath, format_color(flavour.colors.sky, "sky"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.sapphire, "sapphire"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.blue, "blue"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.lavender, "lavender"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.text, "text"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.subtext1, "subtext1"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.subtext0, "subtext0"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.overlay2, "overlay2"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.overlay1, "overlay1"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.overlay0, "overlay0"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.surface2, "surface2"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.surface1, "surface1"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.surface0, "surface0"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.base, "base"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.mantle, "mantle"))
-  let assert Ok(Nil) =
-    append(filepath, format_color(flavour.colors.crust, "crust"))
-
-  Nil
+fn template_colors(colors: Colors) -> String {
+  let t = template_color
+  [
+    t(colors.rosewater, "rosewater"),
+    t(colors.flamingo, "flamingo"),
+    t(colors.pink, "pink"),
+    t(colors.mauve, "mauve"),
+    t(colors.red, "red"),
+    t(colors.maroon, "maroon"),
+    t(colors.peach, "peach"),
+    t(colors.yellow, "yellow"),
+    t(colors.green, "green"),
+    t(colors.teal, "teal"),
+    t(colors.sky, "sky"),
+    t(colors.sapphire, "sapphire"),
+    t(colors.blue, "blue"),
+    t(colors.lavender, "lavender"),
+    t(colors.text, "text"),
+    t(colors.subtext1, "subtext1"),
+    t(colors.subtext0, "subtext0"),
+    t(colors.overlay2, "overlay2"),
+    t(colors.overlay1, "overlay1"),
+    t(colors.overlay0, "overlay0"),
+    t(colors.surface2, "surface2"),
+    t(colors.surface1, "surface1"),
+    t(colors.surface0, "surface0"),
+    t(colors.base, "base"),
+    t(colors.mantle, "mantle"),
+    t(colors.crust, "crust"),
+  ]
+  |> string.concat
 }
 
-pub fn main() {
-  let palette =
-    fetch_palette()
-    |> parse_palette()
+fn template_color(color: Color, key: String) -> String {
+  let assert Ok(glormatted) =
+    "
+      {key}: Color(
+        name: \"{name}\",
+        order: {order},
+        accent: {accent},
+        colour: colour.from_rgb255(r: {r}, g: {g}, b: {b})
+          |> result.unwrap(colour.black),
+      ),"
+    |> replace("key", key)
+    |> then("name", color.name)
+    |> then("order", int.to_string(color.order))
+    |> then("accent", to_string(color.accent))
+    |> then("r", int.to_string(color.rgb.r))
+    |> then("g", int.to_string(color.rgb.g))
+    |> then("b", int.to_string(color.rgb.b))
+  glormatted
+}
 
-  write_flavour(palette.latte, "latte")
-  write_flavour(palette.frappe, "frappe")
-  write_flavour(palette.macchiato, "macchiato")
-  write_flavour(palette.mocha, "mocha")
+fn template_opaque_color(key: String) -> String {
+  let assert Ok(glormatted) =
+    "\n
+pub fn {key}(flavour: Flavour) -> Color {
+  flavour.colors.{key}
+}"
+    |> replace("key", key)
+  glormatted
+}
+
+fn template_opaque_colors() -> String {
+  [
+    "rosewater", "flamingo", "pink", "mauve", "red", "maroon", "peach", "yellow",
+    "green", "teal", "sky", "sapphire", "blue", "lavender", "text", "subtext1",
+    "subtext0", "overlay2", "overlay1", "overlay0", "surface2", "surface1",
+    "surface0", "base", "mantle", "crust",
+  ]
+  |> list.map(template_opaque_color)
+  |> string.concat
 }
