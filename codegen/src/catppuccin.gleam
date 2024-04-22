@@ -224,7 +224,7 @@ type Colors {
 }
 
 pub opaque type Color {
-  Color(name: String, order: Int, accent: Bool, colour: colour.Colour)
+  Color(name: String, order: Int, accent: Bool, colour: Result(colour.Colour, Nil))
 }
 
 pub fn flavour_name(flavour: Flavour) -> String {
