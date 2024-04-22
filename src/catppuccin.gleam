@@ -40,12 +40,7 @@ type Colors {
 }
 
 pub opaque type Color {
-  Color(
-    name: String,
-    order: Int,
-    accent: Bool,
-    colour: colour.Colour,
-  )
+  Color(name: String, order: Int, accent: Bool, colour: colour.Colour)
 }
 
 pub fn flavour_name(flavour: Flavour) -> String {
@@ -77,6 +72,7 @@ pub fn accent(color: Color) -> Bool {
 ///
 pub fn to_colour(color: Color) -> colour.Colour {
   color.colour
+  |> result.unwrap(colour.black)
 }
 
 /// Alias for Colour

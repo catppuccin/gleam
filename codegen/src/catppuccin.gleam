@@ -256,6 +256,7 @@ pub fn accent(color: Color) -> Bool {
 ///
 pub fn to_colour(color: Color) -> colour.Colour {
   color.colour
+  |> result.unwrap(colour.black)
 }"
 }
 
@@ -319,8 +320,7 @@ fn template_color(color: Color, key: String) -> String {
         name: \"{name}\",
         order: {order},
         accent: {accent},
-        colour: colour.from_rgb255(r: {r}, g: {g}, b: {b})
-          |> result.unwrap(colour.black),
+        colour: colour.from_rgb255(r: {r}, g: {g}, b: {b}),
       ),"
     |> replace("key", key)
     |> then("name", color.name)
