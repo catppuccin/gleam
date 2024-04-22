@@ -16,6 +16,10 @@
 	<a href="https://github.com/MAHcodes/catppuccin/contributors"><img src="https://img.shields.io/github/contributors/MAHcodes/catppuccin?colorA=363a4f&colorB=a6da95&style=for-the-badge"></a>
 </p>
 
+<p align="center">
+	<img src="https://raw.githubusercontent.com/MAHcodes/catppuccin/master/assets/out.gif"/>
+</p>
+
 ## 📦 Installation
 
 ```sh
