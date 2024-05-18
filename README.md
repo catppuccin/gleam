@@ -35,7 +35,7 @@ import gleam_community/colour
 
 pub fn main() {
   catppuccin.frappe()
-  |> catppuccin.flavour_name
+  |> catppuccin.flavor_name
   |> io.debug
   // "Frappé"
 
