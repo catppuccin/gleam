@@ -8,8 +8,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.1.0
-      - uses: erlef/setup-beam@v1.16.0
+      - uses: actions/checkout@v4.1.6
+      - uses: erlef/setup-beam@v1.17.5
         with:
           otp-version: "26.0.2"
           rebar3-version: "3"
@@ -27,4 +27,4 @@ jobs:
         env:
           HEXPM_API_KEY: ${{ secrets.HEX_DEPLOY_KEY }}
 
-      - uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v2
