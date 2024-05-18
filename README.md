@@ -11,13 +11,13 @@
 </p>
 
 <p align="center">
-	<a href="https://github.com/MAHcodes/catppuccin/stargazers"><img src="https://img.shields.io/github/stars/MAHcodes/catppuccin?colorA=363a4f&colorB=b7bdf8&style=for-the-badge"></a>
-	<a href="https://github.com/MAHcodes/catppuccin/issues"><img src="https://img.shields.io/github/issues/MAHcodes/catppuccin?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
-	<a href="https://github.com/MAHcodes/catppuccin/contributors"><img src="https://img.shields.io/github/contributors/MAHcodes/catppuccin?colorA=363a4f&colorB=a6da95&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/catppuccin/stargazers"><img src="https://img.shields.io/github/stars/catppuccin/catppuccin?colorA=363a4f&colorB=b7bdf8&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/catppuccin/issues"><img src="https://img.shields.io/github/issues/catppuccin/catppuccin?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/catppuccin/contributors"><img src="https://img.shields.io/github/contributors/catppuccin/catppuccin?colorA=363a4f&colorB=a6da95&style=for-the-badge"></a>
 </p>
 
 <p align="center">
-	<img src="https://raw.githubusercontent.com/MAHcodes/catppuccin/master/assets/out.gif"/>
+	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/master/assets/out.gif"/>
 </p>
 
 ## 📦 Installation
@@ -72,7 +72,7 @@ The project under `codegen` directory is used to generate the library based on t
 
 1. Clone this repository locally
     ```sh
-    git clone https://github.com/MAHcodes/catppuccin/
+    git clone https://github.com/catppuccin/gleam/
     ```
 2. Cd to the `codegen` directory
     ```sh
