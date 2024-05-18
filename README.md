@@ -87,15 +87,9 @@ The project under `codegen` directory is used to generate the library based on t
     mv -iv out/catppuccin.gleam ../src/
     ```
 
-## 🏗️ Setting Up CI/CD Release Workflow
+## 🏗️ CI/CD Release Workflow
 
-1. Create GitHub Secrets:
-    - Navigate to the repository's **Settings** > **Secrets** > **Actions**.
-    - Under **Repository secrets** create `HEX_USERNAME` and `HEX_PASSWORD` with your hex username and password respectively.
-
-2. Granting Actions Permissions
-    - Navigate to the repository's **Settings** > **Actions** > **General**.
-    - Under **Workflow permissions**, select **Read and write permissions**, then click **Save**.
+Set the `HEX_DEPLOY_KEY` token in the repository secrets (**Settings** > **Secrets** > **Actions**).
 
 ## 💝 Thanks to
 
