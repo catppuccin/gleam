@@ -86,7 +86,9 @@ pub fn to_colour(color: Color) -> colour.Colour {
 
 /// alias for `to_colour`
 ///
-pub const to_color: fn(Color) -> colour.Colour = to_colour
+pub fn to_color(color: Color) -> colour.Colour {
+  to_colour(color)
+}
 
 pub fn rosewater(flavor: Flavor) -> Color {
   flavor.colors.rosewater
