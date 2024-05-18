@@ -47,14 +47,14 @@ pub fn main() {
 
   catppuccin.mocha()
   |> catppuccin.mauve
-  |> catppuccin.to_colour
+  |> catppuccin.to_color
   |> colour.to_rgba
   |> io.debug
   // #(0.796078431372549, 0.6509803921568628, 0.9686274509803922, 1.0)
 
   catppuccin.latte()
   |> catppuccin.mauve
-  |> catppuccin.to_colour
+  |> catppuccin.to_color
   |> colour.to_hsla
   |> io.debug
   // #(0.739010989010989, 0.8504672897196262, 0.5803921568627451, 1.0)
