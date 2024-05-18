@@ -4,8 +4,8 @@
 import gleam/result
 import gleam_community/colour
 
-pub opaque type Flavour {
-  Flavour(name: String, order: Int, dark: Bool, colors: Colors)
+pub opaque type Flavor {
+  Flavor(name: String, emoji: String, order: Int, dark: Bool, colors: Colors)
 }
 
 type Colors {
@@ -40,19 +40,28 @@ type Colors {
 }
 
 pub opaque type Color {
-  Color(name: String, order: Int, accent: Bool, colour: Result(colour.Colour, Nil))
+  Color(
+    name: String,
+    order: Int,
+    accent: Bool,
+    colour: Result(colour.Colour, Nil),
+  )
 }
 
-pub fn flavour_name(flavour: Flavour) -> String {
-  flavour.name
+pub fn flavor_name(flavor: Flavor) -> String {
+  flavor.name
 }
 
-pub fn flavour_order(flavour: Flavour) -> Int {
-  flavour.order
+pub fn emoji(flavor: Flavor) -> String {
+  flavor.emoji
 }
 
-pub fn dark(flavour: Flavour) -> Bool {
-  flavour.dark
+pub fn flavor_order(flavor: Flavor) -> Int {
+  flavor.order
+}
+
+pub fn dark(flavor: Flavor) -> Bool {
+  flavor.dark
 }
 
 pub fn color_name(color: Color) -> String {
@@ -75,113 +84,118 @@ pub fn to_colour(color: Color) -> colour.Colour {
   |> result.unwrap(colour.black)
 }
 
-pub fn rosewater(flavour: Flavour) -> Color {
-  flavour.colors.rosewater
+/// alias for `to_colour`
+///
+pub const to_color: fn(Color) -> colour.Colour = to_colour
+
+pub fn rosewater(flavor: Flavor) -> Color {
+  flavor.colors.rosewater
 }
 
-pub fn flamingo(flavour: Flavour) -> Color {
-  flavour.colors.flamingo
+pub fn flamingo(flavor: Flavor) -> Color {
+  flavor.colors.flamingo
 }
 
-pub fn pink(flavour: Flavour) -> Color {
-  flavour.colors.pink
+pub fn pink(flavor: Flavor) -> Color {
+  flavor.colors.pink
 }
 
-pub fn mauve(flavour: Flavour) -> Color {
-  flavour.colors.mauve
+pub fn mauve(flavor: Flavor) -> Color {
+  flavor.colors.mauve
 }
 
-pub fn red(flavour: Flavour) -> Color {
-  flavour.colors.red
+pub fn red(flavor: Flavor) -> Color {
+  flavor.colors.red
 }
 
-pub fn maroon(flavour: Flavour) -> Color {
-  flavour.colors.maroon
+pub fn maroon(flavor: Flavor) -> Color {
+  flavor.colors.maroon
 }
 
-pub fn peach(flavour: Flavour) -> Color {
-  flavour.colors.peach
+pub fn peach(flavor: Flavor) -> Color {
+  flavor.colors.peach
 }
 
-pub fn yellow(flavour: Flavour) -> Color {
-  flavour.colors.yellow
+pub fn yellow(flavor: Flavor) -> Color {
+  flavor.colors.yellow
 }
 
-pub fn green(flavour: Flavour) -> Color {
-  flavour.colors.green
+pub fn green(flavor: Flavor) -> Color {
+  flavor.colors.green
 }
 
-pub fn teal(flavour: Flavour) -> Color {
-  flavour.colors.teal
+pub fn teal(flavor: Flavor) -> Color {
+  flavor.colors.teal
 }
 
-pub fn sky(flavour: Flavour) -> Color {
-  flavour.colors.sky
+pub fn sky(flavor: Flavor) -> Color {
+  flavor.colors.sky
 }
 
-pub fn sapphire(flavour: Flavour) -> Color {
-  flavour.colors.sapphire
+pub fn sapphire(flavor: Flavor) -> Color {
+  flavor.colors.sapphire
 }
 
-pub fn blue(flavour: Flavour) -> Color {
-  flavour.colors.blue
+pub fn blue(flavor: Flavor) -> Color {
+  flavor.colors.blue
 }
 
-pub fn lavender(flavour: Flavour) -> Color {
-  flavour.colors.lavender
+pub fn lavender(flavor: Flavor) -> Color {
+  flavor.colors.lavender
 }
 
-pub fn text(flavour: Flavour) -> Color {
-  flavour.colors.text
+pub fn text(flavor: Flavor) -> Color {
+  flavor.colors.text
 }
 
-pub fn subtext1(flavour: Flavour) -> Color {
-  flavour.colors.subtext1
+pub fn subtext1(flavor: Flavor) -> Color {
+  flavor.colors.subtext1
 }
 
-pub fn subtext0(flavour: Flavour) -> Color {
-  flavour.colors.subtext0
+pub fn subtext0(flavor: Flavor) -> Color {
+  flavor.colors.subtext0
 }
 
-pub fn overlay2(flavour: Flavour) -> Color {
-  flavour.colors.overlay2
+pub fn overlay2(flavor: Flavor) -> Color {
+  flavor.colors.overlay2
 }
 
-pub fn overlay1(flavour: Flavour) -> Color {
-  flavour.colors.overlay1
+pub fn overlay1(flavor: Flavor) -> Color {
+  flavor.colors.overlay1
 }
 
-pub fn overlay0(flavour: Flavour) -> Color {
-  flavour.colors.overlay0
+pub fn overlay0(flavor: Flavor) -> Color {
+  flavor.colors.overlay0
 }
 
-pub fn surface2(flavour: Flavour) -> Color {
-  flavour.colors.surface2
+pub fn surface2(flavor: Flavor) -> Color {
+  flavor.colors.surface2
 }
 
-pub fn surface1(flavour: Flavour) -> Color {
-  flavour.colors.surface1
+pub fn surface1(flavor: Flavor) -> Color {
+  flavor.colors.surface1
 }
 
-pub fn surface0(flavour: Flavour) -> Color {
-  flavour.colors.surface0
+pub fn surface0(flavor: Flavor) -> Color {
+  flavor.colors.surface0
 }
 
-pub fn base(flavour: Flavour) -> Color {
-  flavour.colors.base
+pub fn base(flavor: Flavor) -> Color {
+  flavor.colors.base
 }
 
-pub fn mantle(flavour: Flavour) -> Color {
-  flavour.colors.mantle
+pub fn mantle(flavor: Flavor) -> Color {
+  flavor.colors.mantle
 }
 
-pub fn crust(flavour: Flavour) -> Color {
-  flavour.colors.crust
+pub fn crust(flavor: Flavor) -> Color {
+  flavor.colors.crust
 }
 
-pub fn latte() -> Flavour {
-  Flavour(
+pub fn latte() -> Flavor {
+  Flavor(
     name: "Latte",
+    emoji: "🌻",
     order: 0,
     dark: False,
     colors: Colors(
@@ -345,9 +359,10 @@ pub fn latte() -> Flavour {
   )
 }
 
-pub fn frappe() -> Flavour {
-  Flavour(
+pub fn frappe() -> Flavor {
+  Flavor(
     name: "Frappé",
+    emoji: "🪴",
     order: 1,
     dark: True,
     colors: Colors(
@@ -511,9 +526,10 @@ pub fn frappe() -> Flavour {
   )
 }
 
-pub fn macchiato() -> Flavour {
-  Flavour(
+pub fn macchiato() -> Flavor {
+  Flavor(
     name: "Macchiato",
+    emoji: "🌺",
     order: 2,
     dark: True,
     colors: Colors(
@@ -677,9 +693,10 @@ pub fn macchiato() -> Flavour {
   )
 }
 
-pub fn mocha() -> Flavour {
-  Flavour(
+pub fn mocha() -> Flavor {
+  Flavor(
     name: "Mocha",
+    emoji: "🌿",
     order: 3,
     dark: True,
     colors: Colors(

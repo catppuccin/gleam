@@ -56,17 +56,17 @@ pub type Colors {
   )
 }
 
-pub type Flavour {
-  Flavour(name: String, order: Int, dark: Bool, colors: Colors)
+pub type Flavor {
+  Flavor(name: String, emoji: String, order: Int, dark: Bool, colors: Colors)
 }
 
 pub type Palette {
-  Palette(latte: Flavour, frappe: Flavour, macchiato: Flavour, mocha: Flavour)
+  Palette(latte: Flavor, frappe: Flavor, macchiato: Flavor, mocha: Flavor)
 }
 
 fn fetch_palette() -> String {
   let url =
-    "https://raw.githubusercontent.com/catppuccin/palette/main/palette.json"
+    "https://raw.githubusercontent.com/catppuccin/palette/d751858ffffbff1ed19064ceba69d2a5515ec2bb/palette.json"
   let assert Ok(req) = request.to(url)
   let assert Ok(resp) = httpc.send(req)
   resp.body
@@ -128,10 +128,11 @@ fn parse_palette(palette_string: String) -> Palette {
       field("mantle", color_decoder),
       field("crust", color_decoder),
     )
-  let flavour_decoder =
-    dynamic.decode4(
-      Flavour,
+  let flavor_decoder =
+    dynamic.decode5(
+      Flavor,
       field("name", string),
+      field("emoji", string),
       field("order", int),
       field("dark", bool),
       field("colors", colors_decoder),
@@ -139,10 +140,10 @@ fn parse_palette(palette_string: String) -> Palette {
   let palette_decoder =
     dynamic.decode4(
       Palette,
-      field("latte", flavour_decoder),
-      field("frappe", flavour_decoder),
-      field("macchiato", flavour_decoder),
-      field("mocha", flavour_decoder),
+      field("latte", flavor_decoder),
+      field("frappe", flavor_decoder),
+      field("macchiato", flavor_decoder),
+      field("mocha", flavor_decoder),
     )
 
   let assert Ok(palette) = json.decode(palette_string, palette_decoder)
@@ -171,10 +172,10 @@ fn generate_catppuccin(palette: Palette) {
     [
       template_header(),
       template_opaque_colors(),
-      template_flavour(palette.latte, "latte"),
-      template_flavour(palette.frappe, "frappe"),
-      template_flavour(palette.macchiato, "macchiato"),
-      template_flavour(palette.mocha, "mocha"),
+      template_flavor(palette.latte, "latte"),
+      template_flavor(palette.frappe, "frappe"),
+      template_flavor(palette.macchiato, "macchiato"),
+      template_flavor(palette.mocha, "mocha"),
     ]
     |> string.concat
 
@@ -188,8 +189,8 @@ fn template_header() -> String {
 import gleam/result
 import gleam_community/colour
 
-pub opaque type Flavour {
-  Flavour(name: String, order: Int, dark: Bool, colors: Colors)
+pub opaque type Flavor {
+  Flavor(name: String, emoji: String, order: Int, dark: Bool, colors: Colors)
 }
 
 type Colors {
@@ -224,19 +225,28 @@ type Colors {
 }
 
 pub opaque type Color {
-  Color(name: String, order: Int, accent: Bool, colour: Result(colour.Colour, Nil))
+  Color(
+    name: String,
+    order: Int,
+    accent: Bool,
+    colour: Result(colour.Colour, Nil),
+  )
 }
 
-pub fn flavour_name(flavour: Flavour) -> String {
-  flavour.name
+pub fn flavor_name(flavor: Flavor) -> String {
+  flavor.name
 }
 
-pub fn flavour_order(flavour: Flavour) -> Int {
-  flavour.order
+pub fn emoji(flavor: Flavor) -> String {
+  flavor.emoji
 }
 
-pub fn dark(flavour: Flavour) -> Bool {
-  flavour.dark
+pub fn flavor_order(flavor: Flavor) -> Int {
+  flavor.order
+}
+
+pub fn dark(flavor: Flavor) -> Bool {
+  flavor.dark
 }
 
 pub fn color_name(color: Color) -> String {
@@ -257,15 +267,20 @@ pub fn accent(color: Color) -> Bool {
 pub fn to_colour(color: Color) -> colour.Colour {
   color.colour
   |> result.unwrap(colour.black)
-}"
 }
 
-fn template_flavour(flavour: Flavour, key: String) -> String {
+/// alias for `to_colour`
+///
+pub const to_color: fn(Color) -> colour.Colour = to_colour"
+}
+
+fn template_flavor(flavor: Flavor, key: String) -> String {
   let assert Ok(glormatted) =
     "\n
-pub fn {key}() -> Flavour {
-  Flavour(
+pub fn {key}() -> Flavor {
+  Flavor(
     name: \"{name}\",
+    emoji: \"{emoji}\",
     order: {order},
     dark: {dark},
     colors: Colors({colors}
@@ -273,10 +288,11 @@ pub fn {key}() -> Flavour {
   )
 }"
     |> replace("key", key)
-    |> then("name", flavour.name)
-    |> then("order", int.to_string(flavour.order))
-    |> then("dark", to_string(flavour.dark))
-    |> then("colors", template_colors(flavour.colors))
+    |> then("name", flavor.name)
+    |> then("emoji", flavor.emoji)
+    |> then("order", int.to_string(flavor.order))
+    |> then("dark", to_string(flavor.dark))
+    |> then("colors", template_colors(flavor.colors))
   glormatted
 }
 
@@ -335,8 +351,8 @@ fn template_color(color: Color, key: String) -> String {
 fn template_opaque_color(key: String) -> String {
   let assert Ok(glormatted) =
     "\n
-pub fn {key}(flavour: Flavour) -> Color {
-  flavour.colors.{key}
+pub fn {key}(flavor: Flavor) -> Color {
+  flavor.colors.{key}
 }"
     |> replace("key", key)
   glormatted
