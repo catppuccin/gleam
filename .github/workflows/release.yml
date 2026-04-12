@@ -30,4 +30,4 @@ jobs:
         env:
           HEXPM_API_KEY: ${{ secrets.HEX_DEPLOY_KEY }}
 
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
